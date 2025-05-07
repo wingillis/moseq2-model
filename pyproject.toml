@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "moseq2-model"
+authors = [
+    { name="Datta Lab" },
+]
+dynamic = ["version"]
+description = "MoSeq modeling utilities to train AR-HMM on depth video"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "click>=8.1.8",
+    "cytoolz>=1.0.1",
+    "h5py>=3.13.0",
+    "numpy>=2.2.5",
+    "ruamel-yaml>=0.18.10",
+    "scipy>=1.15.2",
+    "tqdm>=4.67.1",
+]
+
+[project.scripts]
+moseq2-model = "moseq2_model.cli:cli"
+
+[tool.black]
+line-length = 100
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["moseq2_model"]
+
+[tool.setuptools.dynamic]
+version = {attr = "moseq2_model.__version__"}
