@@ -19,6 +19,12 @@ dependencies = [
     "ruamel-yaml>=0.18.10",
     "scipy>=1.15.2",
     "tqdm>=4.67.1",
+    "pybasicbayes @ https://github.com/wingillis/pybasicbayes/raw/refs/heads/update-python/dist/pybasicbayes-0.3.0-cp311-cp311-linux_x86_64.whl ; python_version == '3.11' and sys_platform == 'linux'",
+    "pybasicbayes @ https://github.com/wingillis/pybasicbayes/raw/refs/heads/update-python/dist/pybasicbayes-0.3.0-cp312-cp312-linux_x86_64.whl ; python_version == '3.12' and sys_platform == 'linux'",
+    "pyhsmm @ https://github.com/wingillis/pyhsmm/raw/refs/heads/update-python/dist/pyhsmm-0.2.0-cp311-cp311-linux_x86_64.whl ; python_version == '3.11' and sys_platform == 'linux'",
+    "pyhsmm @ https://github.com/wingillis/pyhsmm/raw/refs/heads/update-python/dist/pyhsmm-0.2.0-cp312-cp312-linux_x86_64.whl ; python_version == '3.12' and sys_platform == 'linux'",
+    "autoregressive @ https://github.com/wingillis/pyhsmm-autoregressive/raw/refs/heads/update-python/dist/autoregressive-0.2.0-cp311-cp311-linux_x86_64.whl ; python_version == '3.11' and sys_platform == 'linux'",
+    "autoregressive @ https://github.com/wingillis/pyhsmm-autoregressive/raw/refs/heads/update-python/dist/autoregressive-0.2.0-cp312-cp312-linux_x86_64.whl ; python_version == '3.12' and sys_platform == 'linux'",
 ]
 
 [project.scripts]
