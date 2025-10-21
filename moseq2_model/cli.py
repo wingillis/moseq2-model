@@ -169,6 +169,11 @@ def modeling_parameters(function):
         default=5,
         help="Increment to record training and validation log-likelihoods.",
     )(function)
+    function = click.option(
+        "--compute-crosslikes",
+        is_flag=True,
+        help="Flag to compute syllable cross-likelihoods. Used to determine syllable separation."
+    )(function)
 
     return function
 

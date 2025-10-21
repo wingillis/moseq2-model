@@ -186,7 +186,10 @@ def learn_model_wrapper(input_file, dest_file, config_data):
         click.echo("Running E step...")
         expected_states = run_e_step(arhmm)
 
-    _, avg_cl = get_crosslikes(arhmm, frame_by_frame=False, normalize_by_frame_count=True)
+    if config_data.get("compute_crosslikes", False):
+        _, avg_cl = get_crosslikes(arhmm, frame_by_frame=False, normalize_by_frame_count=True)
+    else:
+        avg_cl = None
 
     # Pack model data
     export_dict = {
