@@ -174,6 +174,11 @@ def modeling_parameters(function):
         is_flag=True,
         help="Flag to compute syllable cross-likelihoods. Used to determine syllable separation."
     )(function)
+    function = click.option(
+        "--compute-likelihoods",
+        is_flag=True,
+        help="Flag to compute syllable log-likelihoods. Used for model fitting diagnostics."
+    )(function)
 
     return function
 

@@ -166,31 +166,36 @@ def learn_model_wrapper(input_file, dest_file, config_data):
     if isinstance(labels, dict):
         print("Saving multiple model resamples as dict")
 
-    click.echo("Computing likelihoods on each training dataset...")
     # Get training log-likelihoods
-    train_ll = get_loglikelihoods(
-        arhmm, train_data, groupings[0], config_data["separate_trans"]
-    )
+    train_ll = None
+    if config_data.get("compute_likelihoods", False):
+        click.echo("Computing likelihoods on each training dataset...")
+        train_ll = get_loglikelihoods(
+            arhmm, train_data, groupings[0], config_data["separate_trans"]
+        )
+    else:
+        click.echo("Skipping likelihood computation...")
 
-    heldout_ll = []
+    heldout_ll = None
     # Get held out log-likelihoods
-    if config_data["hold_out"]:
+    if config_data["hold_out"] and config_data.get("compute_likelihoods", False):
         click.echo("Computing held out likelihoods with separate transition matrix...")
         heldout_ll = get_loglikelihoods(
             arhmm, test_data, groupings[1], config_data["separate_trans"]
         )
 
+    click.echo("Extracting ARHMM parameters...")
     save_parameters = get_parameters_from_model(arhmm)
 
     if config_data["e_step"]:
         click.echo("Running E step...")
         expected_states = run_e_step(arhmm)
 
+    avg_cl = None
     if config_data.get("compute_crosslikes", False):
         _, avg_cl = get_crosslikes(arhmm, frame_by_frame=False, normalize_by_frame_count=True)
-    else:
-        avg_cl = None
 
+    click.echo("Setting up export dict...")
     # Pack model data
     export_dict = {
         "loglikes": loglikes,
