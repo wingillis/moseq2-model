@@ -39,7 +39,7 @@ class TestGUI(TestCase):
         shutil.copyfile("data/config.yaml", config_file)
 
         with open(config_file, "r") as f:
-            config_data = yaml.safe_load(f)
+            config_data = yaml.load(f)
 
         # adding required run parameters to config file
         config_data["hold_out"] = True
@@ -78,7 +78,7 @@ class TestGUI(TestCase):
         sys.stdin = open(stdin)
 
         with open(config_file, "r") as f:
-            config_data = yaml.safe_load(f)
+            config_data = yaml.load(f)
 
         config_data["hold_out_seed"] = 1000
         config_data["ncpus"] = 100
@@ -133,7 +133,7 @@ class TestGUI(TestCase):
         shutil.copyfile("data/config.yaml", config_file)
 
         with open(config_file, "r") as f:
-            config_data = yaml.safe_load(f)
+            config_data = yaml.load(f)
 
         # adding required run parameters to config file
         config_data["hold_out"] = True

@@ -2,7 +2,8 @@ import os
 import sys
 import h5py
 import numpy as np
-import ruamel.yaml as yaml
+from ruamel.yaml import YAML
+yaml = YAML(typ="safe", pure=True)
 from unittest import TestCase
 from tests.unit_tests.test_train_utils import get_model
 from moseq2_model.train.util import whiten_all, train_model
@@ -322,7 +323,7 @@ class TestUtils(TestCase):
         config_file = "data/config.yaml"
 
         with open(config_file, "r") as f:
-            config_data = yaml.safe_load(f)
+            config_data = yaml.load(f)
 
         X, whitening_parameters = whiten_all(data_dict)
         training_data, validation_data = get_training_data_splits(
@@ -351,7 +352,7 @@ class TestUtils(TestCase):
         config_file = "data/config.yaml"
 
         with open(config_file, "r") as f:
-            config_data = yaml.safe_load(f)
+            config_data = yaml.load(f)
 
         X, whitening_parameters = whiten_all(data_dict)
         training_data, validation_data = get_training_data_splits(
