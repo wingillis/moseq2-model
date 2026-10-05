@@ -72,9 +72,9 @@ setup(
         "statsmodels==0.10.2",
         "ruamel.yaml==0.16.5",
         "opencv-python==4.1.2.30",
-        "pyhsmm @ git+https://github.com/mattjj/pyhsmm.git@master",
-        "pybasicbayes @ git+https://github.com/wingillis/pybasicbayes.git@master",
-        "autoregressive @ git+https://github.com/dattalab/pyhsmm-autoregressive.git@master",
+        "pyhsmm @ git+https://github.com/wingillis/pyhsmm.git@py37-legacy",
+        "pybasicbayes @ git+https://github.com/wingillis/pybasicbayes.git@py37-legacy",
+        "autoregressive @ git+https://github.com/wingillis/pyhsmm-autoregressive.git@py37-legacy",
     ],
     entry_points={"console_scripts": ["moseq2-model = moseq2_model.cli:cli"]},
 )
