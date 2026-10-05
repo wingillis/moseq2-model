@@ -2,7 +2,8 @@
 GUI front-end functions for training ARHMM.
 """
 
-import ruamel.yaml as yaml
+from ruamel.yaml import YAML
+yaml = YAML(typ="safe", pure=True)
 from moseq2_model.cli import learn_model, kappa_scan_fit_models
 from os.path import dirname, join, exists
 from moseq2_model.helpers.wrappers import (
@@ -43,7 +44,7 @@ def learn_model_command(progress_paths, get_cmd=True, verbose=False):
     ), "Index file not found; set the correct path in progress_paths['index_file']"
 
     with open(config_file, "r") as f:
-        config_data = yaml.safe_load(f)
+        config_data = yaml.load(f)
 
     # Get default CLI params
     params = {tmp.name: tmp.default for tmp in learn_model.params if not tmp.required}
@@ -98,7 +99,7 @@ def apply_model_command(progress_paths, model_file):
 
     # load config data
     with open(config_file, "r") as f:
-        config_data = yaml.safe_load(f)
+        config_data = yaml.load(f)
 
     # apply model to data
     apply_model_wrapper(model_file, pc_file, dest_file, config_data)

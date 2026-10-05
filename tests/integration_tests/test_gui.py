@@ -2,7 +2,8 @@ import os
 import sys
 import shutil
 import joblib
-import ruamel.yaml as yaml
+from ruamel.yaml import YAML
+yaml = YAML(typ="safe", pure=True)
 from unittest import TestCase
 from moseq2_model.gui import learn_model_command
 
@@ -55,7 +56,7 @@ class TestGUI(TestCase):
         config_data["out_script"] = "train_out.sh"
 
         with open(config_file, "w") as f:
-            yaml.safe_dump(config_data, f)
+            yaml.dump(config_data, f)
 
         _ = learn_model_command(progress_paths, verbose=True, get_cmd=True)
 
@@ -83,7 +84,7 @@ class TestGUI(TestCase):
         config_data["ncpus"] = 100
 
         with open(config_file, "w") as f:
-            yaml.safe_dump(config_data, f)
+            yaml.dump(config_data, f)
 
         _ = learn_model_command(progress_paths, verbose=True, get_cmd=True)
 
@@ -153,7 +154,7 @@ class TestGUI(TestCase):
         config_data["run_cmd"] = False
 
         with open(config_file, "w") as f:
-            yaml.safe_dump(config_data, f)
+            yaml.dump(config_data, f)
 
         _ = learn_model_command(progress_paths, verbose=True, get_cmd=True)
 
