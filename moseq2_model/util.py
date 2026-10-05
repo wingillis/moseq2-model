@@ -200,10 +200,11 @@ def get_loglikelihoods(arhmm, data, groups, separate_trans, normalize=True):
 
     if separate_trans:
         ll = [
-            arhmm.log_likelihood(v, group_id=g) for g, v in zip(groups, data.values())
+            float(arhmm.log_likelihood(v, group_id=g))
+            for g, v in zip(groups, data.values())
         ]
     else:
-        ll = [arhmm.log_likelihood(v) for v in data.values()]
+        ll = [float(arhmm.log_likelihood(v)) for v in data.values()]
     if normalize:
         ll = [l / len(v) for l, v in zip(ll, data.values())]
 
@@ -452,7 +453,7 @@ def load_cell_string_from_matlab(filename, var_name="uuids"):
 
             # change unichr to chr for python 3
             for i in range(len(tmp)):
-                tmp2 = f[tmp[i][0]]
+                tmp2 = np.asarray(f[tmp[i][0]]).ravel()
                 uni_list = ["".join(chr(c)) for c in tmp2]
                 return_list.append("".join(uni_list))
 

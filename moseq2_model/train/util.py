@@ -195,7 +195,7 @@ def train_model(
             print("Returning and saving current iteration of model. ")
             return (
                 model,
-                model.log_likelihood(),
+                float(model.log_likelihood()),
                 get_labels_from_model(model),
                 iter_lls,
                 iter_holls,
@@ -228,7 +228,7 @@ def train_model(
 
     return (
         model,
-        model.log_likelihood(),
+        float(model.log_likelihood()),
         labels if save_every_flag else labels[itr],
         iter_lls,
         iter_holls,
@@ -250,7 +250,7 @@ def training_checkpoint(model, itr, checkpoint_file):
     save_data = {
         "iter": itr + 1,
         "model": model,
-        "log_likelihoods": model.log_likelihood(),
+        "log_likelihoods": float(model.log_likelihood()),
         "labels": get_labels_from_model(model),
     }
 

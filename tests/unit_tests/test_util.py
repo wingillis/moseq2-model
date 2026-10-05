@@ -295,7 +295,7 @@ class TestUtils(TestCase):
             "int-test": 1,
             "float": 1.12432,
             "list": [1, 2, 3, 4],
-            "np": np.array([[[1], [2], [3]], [[4], [5], [6]]]).astype(np.object),
+            "np": np.array([[[1], [2], [3]], [[4], [5], [6]]]).astype(object),
             "dict": {"test": 12},
             12: "int key test",
             (1, 2): "tuple key test",
