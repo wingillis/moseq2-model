@@ -299,7 +299,7 @@ def dict_to_h5(h5file, export_dict, path="/"):
             item = item.encode("utf8")
 
         # Write dict item to h5 based on its data-type
-        if isinstance(item, np.ndarray) and item.dtype == np.object:
+        if isinstance(item, np.ndarray) and item.dtype == object:
             dt = h5py.special_dtype(vlen=np.array(item.flat[0]).dtype)
             h5file.create_dataset(path + key, item.shape, dtype=dt, compression="gzip")
             for tup, _ in np.ndenumerate(item):
@@ -307,7 +307,7 @@ def dict_to_h5(h5file, export_dict, path="/"):
                     h5file[path + key][tup] = np.array(item[tup]).ravel()
         elif isinstance(item, (np.ndarray, list)):
             h5file.create_dataset(path + key, data=item, compression="gzip")
-        elif isinstance(item, (np.int, np.float, str, bytes)):
+        elif isinstance(item, (int, float, str, bytes)):
             h5file.create_dataset(path + key, data=item)
         elif isinstance(item, dict):
             dict_to_h5(h5file, item, path + key + "/")
