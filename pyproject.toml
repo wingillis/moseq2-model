@@ -42,7 +42,7 @@ multi_line_output = 3
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["moseq2_model"]
+include = ["moseq2_model*"]
 
 [tool.setuptools.dynamic]
 version = {attr = "moseq2_model.__version__"}
