@@ -101,7 +101,9 @@ def ARHMM(
     model (ARHMM): initialized model object
     """
 
-    warnings.filterwarnings("ignore", category=np.VisibleDeprecationWarning)
+    # numpy 2 removed VisibleDeprecationWarning
+    _vdw = getattr(np, "VisibleDeprecationWarning", DeprecationWarning)
+    warnings.filterwarnings("ignore", category=_vdw)
 
     # Get dimension of training data
     data_dim = list(data_dict.values())[0].shape[1]

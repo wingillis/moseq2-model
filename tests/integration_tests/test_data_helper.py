@@ -1,6 +1,7 @@
 import os
 import sys
-import ruamel.yaml as yaml
+from ruamel.yaml import YAML
+yaml = YAML(typ="safe", pure=True)
 from os.path import dirname
 from unittest import TestCase
 from moseq2_model.util import load_pcs
@@ -27,7 +28,7 @@ class TestDataHelpers(TestCase):
         )
 
         with open(config_file, "r") as f:
-            config_data = yaml.safe_load(f)
+            config_data = yaml.load(f)
 
         index_data, data_metadata = process_indexfile(
             index_path, config_data, data_metadata
@@ -45,7 +46,7 @@ class TestDataHelpers(TestCase):
         )
 
         with open(index_path, "r") as f:
-            index_data = yaml.safe_load(f)
+            index_data = yaml.load(f)
 
         # test simple CLI case
         data_dict, data_metadata = select_data_to_model(
@@ -83,12 +84,12 @@ class TestDataHelpers(TestCase):
         )
 
         with open(config_file, "r") as f:
-            config_data = yaml.safe_load(f)
+            config_data = yaml.load(f)
 
         index_path = "data/test_index.yaml"
 
         with open(index_path, "r") as f:
-            index_data = yaml.safe_load(f)
+            index_data = yaml.load(f)
 
         data_dict, data_metadata = select_data_to_model(
             index_data, data_dict, data_metadata
@@ -154,14 +155,14 @@ class TestDataHelpers(TestCase):
         )
 
         with open(config_file, "r") as f:
-            config_data = yaml.safe_load(f)
+            config_data = yaml.load(f)
             config_data["hold_out"] = True
             config_data["nfolds"] = 2
 
         index_path = "data/test_index.yaml"
 
         with open(index_path, "r") as f:
-            index_data = yaml.safe_load(f)
+            index_data = yaml.load(f)
 
         data_dict, data_metadata = select_data_to_model(
             index_data, data_dict, data_metadata
@@ -196,7 +197,7 @@ class TestDataHelpers(TestCase):
         )
 
         with open(config_file, "r") as f:
-            config_data = yaml.safe_load(f)
+            config_data = yaml.load(f)
             config_data["hold_out"] = False
             config_data["percent_split"] = 50
 
@@ -228,7 +229,7 @@ class TestDataHelpers(TestCase):
         iter_holls = [2, 5, 9]
 
         with open(config_file, "r") as f:
-            config_data = yaml.safe_load(f)
+            config_data = yaml.load(f)
             config_data["hold_out"] = True
             config_data["verbose"] = True
 
@@ -243,7 +244,7 @@ class TestDataHelpers(TestCase):
         iter_holls = [[2, 3, 8], [5, 5, 9]]
 
         with open(config_file, "r") as f:
-            config_data = yaml.safe_load(f)
+            config_data = yaml.load(f)
             config_data["hold_out"] = True
             config_data["verbose"] = True
 

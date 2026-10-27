@@ -1,5 +1,6 @@
 import numpy as np
-import ruamel.yaml as yaml
+from ruamel.yaml import YAML
+yaml = YAML(typ="safe", pure=True)
 from unittest import TestCase
 from moseq2_model.util import load_pcs
 from moseq2_model.helpers.data import prepare_model_metadata
@@ -60,7 +61,7 @@ class TestTrainModels(TestCase):
         config_file = "data/config.yaml"
 
         with open(config_file, "r") as f:
-            config_data = yaml.safe_load(f)
+            config_data = yaml.load(f)
 
         data_dict, data_metadata = load_pcs(
             filename=input_file, var_name="scores", npcs=10, load_groups=True

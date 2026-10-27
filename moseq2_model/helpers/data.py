@@ -6,7 +6,8 @@ import click
 import random
 import warnings
 import numpy as np
-import ruamel.yaml as yaml
+from ruamel.yaml import YAML
+yaml = YAML(typ="safe", pure=True)
 import matplotlib.pyplot as plt
 from cytoolz import pluck, curried
 from collections import OrderedDict
@@ -34,7 +35,7 @@ def process_indexfile(index, data_metadata, select_groups=False):
     if index is not None and exists(index):
         with open(index, "r") as f:
             # reading in array of files
-            index_data = yaml.safe_load(f)
+            index_data = yaml.load(f)
             yml_metadata = index_data["files"]
 
         # reading corresponding groups and uuids

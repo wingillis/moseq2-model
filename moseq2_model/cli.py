@@ -49,6 +49,7 @@ def modeling_parameters(function):
         "--hold-out",
         "-h",
         is_flag=True,
+        default=False,
         help="Hold out one fold (set by nfolds) for computing heldout likelihood",
     )(function)
     function = click.option(
@@ -83,6 +84,7 @@ def modeling_parameters(function):
     function = click.option(
         "--e-step",
         is_flag=True,
+        default=False,
         help="Compute the expected state sequence for each recordings",
     )(function)
     function = click.option(
@@ -115,6 +117,7 @@ def modeling_parameters(function):
         "--nan-zeroed-frames",
         type=bool,
         is_flag=True,
+        default=False,
         help="Flag that discards frames without a mouse",
     )(function)
     function = click.option(
@@ -158,10 +161,14 @@ def modeling_parameters(function):
     function = click.option(
         "--separate-trans",
         is_flag=True,
+        default=False,
         help="Use separate transition matrix for each group",
     )(function)
     function = click.option(
-        "--robust", is_flag=True, help="Use robust AR-HMM model. More tolerant to noise"
+        "--robust",
+        is_flag=True,
+        default=False,
+        help="Use robust AR-HMM model. More tolerant to noise"
     )(function)
     function = click.option(
         "--check-every",
@@ -197,6 +204,7 @@ def modeling_parameters(function):
 @click.option(
     "--use-checkpoint",
     is_flag=True,
+    default=False,
     help="indicate whether to use previously saved checkpoint",
 )
 @click.option(
@@ -210,6 +218,7 @@ def modeling_parameters(function):
     "--verbose",
     "-v",
     is_flag=True,
+    default=False,
     help="Print syllable log-likelihoods during training.",
 )
 def learn_model(input_file, dest_file, **config_data):
@@ -303,8 +312,12 @@ def apply_model(model_file, pc_file, dest_file, **config_data):
 @click.option(
     "--partition", type=str, default="short", help="Partition name (slurm only)"
 )
-@click.option("--get-cmd", is_flag=True, help="Print scan command strings.")
-@click.option("--run-cmd", is_flag=True, help="Run scan command strings.")
+@click.option(
+    "--get-cmd", is_flag=True, default=False, help="Print scan command strings."
+)
+@click.option(
+    "--run-cmd", is_flag=True, default=False, help="Run scan command strings."
+)
 @modeling_parameters
 def kappa_scan_fit_models(input_file, output_dir, **config_data):
     # Scan through the kappa hyperparameter to find the kappa that best matches the changepoint duration distribution.

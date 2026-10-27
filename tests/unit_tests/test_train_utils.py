@@ -1,7 +1,8 @@
 import numpy as np
 from scipy import stats
 from copy import deepcopy
-import ruamel.yaml as yaml
+from ruamel.yaml import YAML
+yaml = YAML(typ="safe", pure=True)
 from unittest import TestCase
 from moseq2_model.util import load_pcs
 from moseq2_model.train.models import ARHMM
@@ -27,7 +28,7 @@ def get_model(separate_trans=False, robust=False, groups=[]):
     config_file = "data/config.yaml"
 
     with open(config_file, "r") as f:
-        config_data = yaml.safe_load(f)
+        config_data = yaml.load(f)
 
     config_data["separate_trans"] = separate_trans
     config_data["robust"] = robust
@@ -53,7 +54,7 @@ class TestTrainUtils(TestCase):
     def test_train_model(self):
         config_file = "data/config.yaml"
         with open(config_file, "r") as f:
-            config_data = yaml.safe_load(f)
+            config_data = yaml.load(f)
             config_data["percent_split"] = 1
 
         model, data_dict = get_model()
@@ -116,7 +117,7 @@ class TestTrainUtils(TestCase):
         config_file = "data/config.yaml"
 
         with open(config_file, "r") as f:
-            config_data = yaml.safe_load(f)
+            config_data = yaml.load(f)
 
         model, data_dict = get_model()
 

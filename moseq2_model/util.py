@@ -200,10 +200,11 @@ def get_loglikelihoods(arhmm, data, groups, separate_trans, normalize=True):
 
     if separate_trans:
         ll = [
-            arhmm.log_likelihood(v, group_id=g) for g, v in zip(groups, data.values())
+            float(arhmm.log_likelihood(v, group_id=g))
+            for g, v in zip(groups, data.values())
         ]
     else:
-        ll = [arhmm.log_likelihood(v) for v in data.values()]
+        ll = [float(arhmm.log_likelihood(v)) for v in data.values()]
     if normalize:
         ll = [l / len(v) for l, v in zip(ll, data.values())]
 
@@ -299,7 +300,7 @@ def dict_to_h5(h5file, export_dict, path="/"):
             item = item.encode("utf8")
 
         # Write dict item to h5 based on its data-type
-        if isinstance(item, np.ndarray) and item.dtype == np.object:
+        if isinstance(item, np.ndarray) and item.dtype == object:
             dt = h5py.special_dtype(vlen=np.array(item.flat[0]).dtype)
             h5file.create_dataset(path + key, item.shape, dtype=dt, compression="gzip")
             for tup, _ in np.ndenumerate(item):
@@ -307,7 +308,7 @@ def dict_to_h5(h5file, export_dict, path="/"):
                     h5file[path + key][tup] = np.array(item[tup]).ravel()
         elif isinstance(item, (np.ndarray, list)):
             h5file.create_dataset(path + key, data=item, compression="gzip")
-        elif isinstance(item, (np.int, np.float, str, bytes)):
+        elif isinstance(item, (int, float, str, bytes)):
             h5file.create_dataset(path + key, data=item)
         elif isinstance(item, dict):
             dict_to_h5(h5file, item, path + key + "/")
@@ -452,7 +453,7 @@ def load_cell_string_from_matlab(filename, var_name="uuids"):
 
             # change unichr to chr for python 3
             for i in range(len(tmp)):
-                tmp2 = f[tmp[i][0]]
+                tmp2 = np.asarray(f[tmp[i][0]]).ravel()
                 uni_list = ["".join(chr(c)) for c in tmp2]
                 return_list.append("".join(uni_list))
 
